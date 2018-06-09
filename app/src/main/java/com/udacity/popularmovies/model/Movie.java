@@ -23,7 +23,7 @@ public final class Movie {
         return title;
     }
 
-    public String getImagePath() {
+    public String getImageUrl() {
         return IMAGE_BASE_URL + IMAGE_DEFAULT_POSTER_SIZE + "/" + imagePath;
     }
 

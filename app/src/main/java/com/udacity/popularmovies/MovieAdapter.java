@@ -1,11 +1,13 @@
 package com.udacity.popularmovies;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.udacity.popularmovies.model.Movie;
 
 public class MovieAdapter extends BaseAdapter {
@@ -34,8 +36,17 @@ public class MovieAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView dummyTextView = new TextView(mContext);
-        dummyTextView.setText(String.valueOf(position));
-        return dummyTextView;
+        final Movie movie = movies[position];
+        if (convertView == null) {
+            final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            convertView = layoutInflater.inflate(R.layout.linearlayout_movie, null);
+        }
+        final ImageView mImageView = (ImageView) convertView.findViewById(R.id.iv_movie_thumbnail);
+        Picasso.with(mContext)
+                .load(movie.getImageUrl())
+                .placeholder(R.drawable.movie_placeholder)
+                .error(R.drawable.movie_placeholder_error)
+                .into(mImageView);
+        return convertView;
     }
 }
