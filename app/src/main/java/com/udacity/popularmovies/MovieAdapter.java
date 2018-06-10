@@ -12,8 +12,6 @@ import com.squareup.picasso.Picasso;
 import com.udacity.popularmovies.model.Movie;
 import com.udacity.popularmovies.utilities.JsonUtils;
 
-import org.json.JSONException;
-
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
     private final MovieAdapterOnClickHandler mClickHandler;
     private Context mContext;
@@ -30,12 +28,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     public class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final ImageView mMovieImageView;
-        public final TextView mMovieTitleTextView;
 
         public MovieAdapterViewHolder(View view) {
             super(view);
             mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie_thumbnail);
-            mMovieTitleTextView = (TextView) view.findViewById(R.id.tv_movie_title);
             view.setOnClickListener(this);
         }
 
@@ -50,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     @Override
     public MovieAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.linearlayout_movie;
+        int layoutIdForListItem = R.layout.movie_list_item;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
@@ -63,11 +59,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         String selectedMovieString = movies[position];
         Movie selectedMovie = JsonUtils.parseMovieJson(selectedMovieString);
         Picasso.with(mContext)
-                .load(selectedMovie.getImageUrl())
+                .load(selectedMovie.getPosterImageUrl())
                 .placeholder(R.drawable.movie_placeholder)
                 .error(R.drawable.movie_placeholder_error)
                 .into(movieAdapterViewHolder.mMovieImageView);
-        movieAdapterViewHolder.mMovieTitleTextView.setText(selectedMovie.getTitle());
     }
 
     /**

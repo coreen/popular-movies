@@ -11,15 +11,11 @@ import com.squareup.picasso.Picasso;
 import com.udacity.popularmovies.model.Movie;
 import com.udacity.popularmovies.utilities.JsonUtils;
 
-import org.json.JSONException;
-
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_POSITION = "extra_position";
-    private static final int DEFAULT_POSITION = -1;
-
-    private TextView mMovieTitle;
-    private ImageView mMovieThumbnail;
+    private ImageView mBackdrop;
+    private TextView mTitle;
+    private ImageView mPoster;
     private TextView mReleaseDate;
     private TextView mVoteAvg;
     private TextView mMovieSummary;
@@ -30,30 +26,30 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         // find all views of activity
-        mMovieTitle = (TextView) findViewById(R.id.tv_title);
-        mMovieThumbnail = (ImageView) findViewById(R.id.iv_thumbnail);
+        mBackdrop = (ImageView) findViewById(R.id.iv_backdrop);
+        mTitle = (TextView) findViewById(R.id.tv_title);
+        mPoster = (ImageView) findViewById(R.id.iv_poster);
         mReleaseDate = (TextView) findViewById(R.id.tv_release_date);
         mVoteAvg = (TextView) findViewById(R.id.tv_vote_avg);
         mMovieSummary = (TextView) findViewById(R.id.tv_summary);
 
         Intent intent = getIntent();
-//        final int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-//        if (position == DEFAULT_POSITION) {
-//            // EXTRA_POSITION not found in intent
-//            closeOnError();
-//            return;
-//        }
 
         String selectedMovieString = intent.getStringExtra(Intent.EXTRA_TEXT);
         Movie selectedMovie = JsonUtils.parseMovieJson(selectedMovieString);
-        mMovieTitle.setText(selectedMovie.getTitle());
         Picasso.with(this)
-                .load(selectedMovie.getImageUrl())
+                .load(selectedMovie.getBackdropImageUrl())
                 .placeholder(R.drawable.movie_placeholder)
                 .error(R.drawable.movie_placeholder_error)
-                .into(mMovieThumbnail);
-        mReleaseDate.setText(selectedMovie.getReleaseDate());
-        mVoteAvg.setText(selectedMovie.getVoteAvg());
+                .into(mBackdrop);
+        mTitle.setText(selectedMovie.getTitle());
+        Picasso.with(this)
+                .load(selectedMovie.getPosterImageUrl())
+                .placeholder(R.drawable.movie_placeholder)
+                .error(R.drawable.movie_placeholder_error)
+                .into(mPoster);
+        mReleaseDate.setText("Release Date: " + selectedMovie.getReleaseDate());
+        mVoteAvg.setText(selectedMovie.getVoteAvg() + " / 10");
         mMovieSummary.setText(selectedMovie.getSummary());
     }
 

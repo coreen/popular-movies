@@ -427,7 +427,8 @@ public class JsonUtils {
 
     private static final String RESULTS = "results";
     private static final String TITLE = "title";
-    private static final String IMAGE_PATH = "backdrop_path";
+    private static final String BACKDROP_IMAGE_PATH = "backdrop_path";
+    private static final String POSTER_IMAGE_PATH = "poster_path";
     private static final String SUMMARY = "overview";
     private static final String RELEASE_DATE = "release_date";
     private static final String VOTE_AVG = "vote_average";
@@ -447,12 +448,14 @@ public class JsonUtils {
         try {
             JSONObject json = new JSONObject(selectedMovieString);
             String title = json.getString(TITLE);
-            String imagePath = json.getString(IMAGE_PATH);
+            String backdropImagePath = json.getString(BACKDROP_IMAGE_PATH);
+            String posterImagePath = json.getString(POSTER_IMAGE_PATH);
             String summary = json.getString(SUMMARY);
             String releaseDate = json.getString(RELEASE_DATE);
             String voteAvg = json.getString(VOTE_AVG);
 
-            return new Movie(title, imagePath, summary, releaseDate, voteAvg);
+            return new Movie(title, backdropImagePath, posterImagePath,
+                    summary, releaseDate, voteAvg);
         } catch (JSONException e) {
             return null;
         }
