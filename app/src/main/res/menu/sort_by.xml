@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/action_most_popular_sort"
+        android:orderInCategory="1"
+        android:title="@string/most_popular_sort"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/action_top_rated_sort"
+        android:orderInCategory="1"
+        android:title="@string/top_rated_sort"
+        app:showAsAction="collapseActionView"/>
+</menu>

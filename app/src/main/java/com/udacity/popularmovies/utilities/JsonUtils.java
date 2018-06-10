@@ -9,18 +9,9 @@ import org.json.JSONObject;
 /**
  * Utility to handle themoviedb.org JSON data.
  */
-public class MovieDbJsonUtils {
+public class JsonUtils {
 
-    //TODO(coreeny): remove this, for testing without api only
-    public static Movie[] parseApiJson() {
-        try {
-            return parseApiJson(SAMPLE_DATA);
-        } catch (JSONException e) {
-            return null;
-        }
-    }
-
-    private static String SAMPLE_DATA = "{" +
+    public static String SAMPLE_DATA = "{" +
             "  \"page\": 1," +
             "  \"results\": [" +
             "    {" +
@@ -441,24 +432,29 @@ public class MovieDbJsonUtils {
     private static final String RELEASE_DATE = "release_date";
     private static final String VOTE_AVG = "vote_average";
 
-    public static Movie[] parseApiJson(String json) throws JSONException {
+    public static String[] getMovieStringsFromJson(String json) throws JSONException {
         JSONObject response = new JSONObject(json);
         JSONArray movies = response.getJSONArray(RESULTS);
-        Movie[] result = new Movie[movies.length()];
+        String[] result = new String[movies.length()];
         for (int i = 0; i < movies.length(); i++) {
             JSONObject movie = (JSONObject) movies.get(i);
-            result[i] = parseMovieJson(movie);
+            result[i] = movie.toString();
         }
         return result;
     }
 
-    public static Movie parseMovieJson(JSONObject json) throws JSONException {
-        String title = json.getString(TITLE);
-        String imagePath = json.getString(IMAGE_PATH);
-        String summary = json.getString(SUMMARY);
-        String releaseDate = json.getString(RELEASE_DATE);
-        String voteAvg = json.getString(VOTE_AVG);
+    public static Movie parseMovieJson(String selectedMovieString) {
+        try {
+            JSONObject json = new JSONObject(selectedMovieString);
+            String title = json.getString(TITLE);
+            String imagePath = json.getString(IMAGE_PATH);
+            String summary = json.getString(SUMMARY);
+            String releaseDate = json.getString(RELEASE_DATE);
+            String voteAvg = json.getString(VOTE_AVG);
 
-        return new Movie(title, imagePath, summary, releaseDate, voteAvg);
+            return new Movie(title, imagePath, summary, releaseDate, voteAvg);
+        } catch (JSONException e) {
+            return null;
+        }
     }
 }

@@ -3,8 +3,14 @@ package com.udacity.popularmovies.utilities;
 import android.net.Uri;
 import android.util.Log;
 
+import com.udacity.popularmovies.model.SortBy;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Scanner;
 
 /**
  * Utility to communicate with themoviedb.org API.
@@ -17,19 +23,6 @@ public final class NetworkUtils {
     private static final String TOP_RATED_MOVIES_PATH = "movie/top_rated";
     private static final String API_KEY_QUERY = "api_key";
 
-    private enum PATH_TYPE {
-        POPULAR_MOVIES,
-        TOP_RATED_MOVIES
-    }
-
-    public static URL buildPopularMoviesUrl() {
-        return buildUrl(PATH_TYPE.POPULAR_MOVIES);
-    }
-
-    public static URL buildTopRatedMoviesUrl() {
-        return buildUrl(PATH_TYPE.TOP_RATED_MOVIES);
-    }
-
     /**
      * Builds the URL used to talk to the movie db server.
      *
@@ -37,11 +30,11 @@ public final class NetworkUtils {
      *
      * @return The URL to use to query the movie db server.
      */
-    private static URL buildUrl(PATH_TYPE pathType) {
+    public static URL buildUrl(SortBy sort) {
         String path = "";
-        if (pathType == PATH_TYPE.POPULAR_MOVIES) {
+        if (sort == SortBy.MOST_POPULAR) {
             path = POPULAR_MOVIES_PATH;
-        } else if (pathType == PATH_TYPE.TOP_RATED_MOVIES) {
+        } else if (sort == SortBy.TOP_RATED) {
             path = TOP_RATED_MOVIES_PATH;
         }
         Uri builtUri = Uri.parse(MOVIE_DB_BASE_URL).buildUpon()
@@ -59,5 +52,24 @@ public final class NetworkUtils {
         Log.v(TAG, "Built URI " + url);
 
         return url;
+    }
+
+    public static String getResponseFromHttpUrl(URL url) throws IOException {
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        try {
+            InputStream in = urlConnection.getInputStream();
+
+            Scanner scanner = new Scanner(in);
+            scanner.useDelimiter("\\A");
+
+            boolean hasInput = scanner.hasNext();
+            if (hasInput) {
+                return scanner.next();
+            } else {
+                return null;
+            }
+        } finally {
+            urlConnection.disconnect();
+        }
     }
 }
