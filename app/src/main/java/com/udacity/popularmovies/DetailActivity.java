@@ -30,19 +30,19 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         // find all views of activity
-        mMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
-        mMovieThumbnail = (ImageView) findViewById(R.id.iv_movie_thumbnail);
+        mMovieTitle = (TextView) findViewById(R.id.tv_title);
+        mMovieThumbnail = (ImageView) findViewById(R.id.iv_thumbnail);
         mReleaseDate = (TextView) findViewById(R.id.tv_release_date);
         mVoteAvg = (TextView) findViewById(R.id.tv_vote_avg);
-        mMovieSummary = (TextView) findViewById(R.id.tv_movie_summary);
+        mMovieSummary = (TextView) findViewById(R.id.tv_summary);
 
         Intent intent = getIntent();
-        final int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-        if (position == DEFAULT_POSITION) {
-            // EXTRA_POSITION not found in intent
-            closeOnError();
-            return;
-        }
+//        final int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
+//        if (position == DEFAULT_POSITION) {
+//            // EXTRA_POSITION not found in intent
+//            closeOnError();
+//            return;
+//        }
 
         String selectedMovieString = intent.getStringExtra(Intent.EXTRA_TEXT);
         Movie selectedMovie = JsonUtils.parseMovieJson(selectedMovieString);
