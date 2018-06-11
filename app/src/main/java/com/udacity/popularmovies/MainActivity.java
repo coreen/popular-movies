@@ -91,9 +91,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             URL movieRequestUrl = NetworkUtils.buildUrl(sort);
 
             try {
-//                String jsonMovieResponse = NetworkUtils.getResponseFromHttpUrl(movieRequestUrl);
-                // TODO(coreeny): pass in jsonMovieResponse instead of SAMPLE_DATA into this function once integrate API
-                String[] movies = JsonUtils.getMovieStringsFromJson(JsonUtils.SAMPLE_DATA);
+                String jsonMovieResponse = NetworkUtils.getResponseFromHttpUrl(movieRequestUrl);
+                String[] movies = JsonUtils.getMovieStringsFromJson(jsonMovieResponse);
 
                 return movies;
             } catch (Exception e) {
