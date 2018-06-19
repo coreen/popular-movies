@@ -19,20 +19,19 @@ public class JsonUtils {
     private static final String RELEASE_DATE = "release_date";
     private static final String VOTE_AVG = "vote_average";
 
-    public static String[] getMovieStringsFromJson(String json) throws JSONException {
+    public static Movie[] getMoviesFromJsonString(String json) throws JSONException {
         JSONObject response = new JSONObject(json);
         JSONArray movies = response.getJSONArray(RESULTS);
-        String[] result = new String[movies.length()];
+        Movie[] result = new Movie[movies.length()];
         for (int i = 0; i < movies.length(); i++) {
             JSONObject movie = (JSONObject) movies.get(i);
-            result[i] = movie.toString();
+            result[i] = parseMovieJson(movie);
         }
         return result;
     }
 
-    public static Movie parseMovieJson(String selectedMovieString) {
+    public static Movie parseMovieJson(JSONObject json) {
         try {
-            JSONObject json = new JSONObject(selectedMovieString);
             String title = json.getString(TITLE);
             String backdropImagePath = json.getString(BACKDROP_IMAGE_PATH);
             String posterImagePath = json.getString(POSTER_IMAGE_PATH);

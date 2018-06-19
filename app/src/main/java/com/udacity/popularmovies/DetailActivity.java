@@ -12,6 +12,7 @@ import com.udacity.popularmovies.model.Movie;
 import com.udacity.popularmovies.utilities.JsonUtils;
 
 public class DetailActivity extends AppCompatActivity {
+    private static final String MOVIE = "movie";
 
     private ImageView mBackdrop;
     private TextView mTitle;
@@ -35,8 +36,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String selectedMovieString = intent.getStringExtra(Intent.EXTRA_TEXT);
-        Movie selectedMovie = JsonUtils.parseMovieJson(selectedMovieString);
+        Movie selectedMovie = intent.getParcelableExtra(MOVIE);
         Picasso.with(this)
                 .load(selectedMovie.getBackdropImageUrl())
                 .placeholder(R.drawable.movie_placeholder)

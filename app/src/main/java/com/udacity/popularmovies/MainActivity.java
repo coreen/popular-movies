@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.udacity.popularmovies.model.Movie;
 import com.udacity.popularmovies.model.SortBy;
 import com.udacity.popularmovies.utilities.JsonUtils;
 import com.udacity.popularmovies.utilities.NetworkUtils;
@@ -21,6 +22,8 @@ import com.udacity.popularmovies.utilities.NetworkUtils;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
+    public static final String MOVIE = "movie";
+
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
 
@@ -49,11 +52,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     }
 
     @Override
-    public void onClick(String selectedMovie) {
+    public void onClick(Movie selectedMovie) {
         Context context = this;
         Class destinationClass = DetailActivity.class;
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
-        intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, selectedMovie);
+        intentToStartDetailActivity.putExtra(MOVIE, selectedMovie);
         startActivity(intentToStartDetailActivity);
     }
 
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         new FetchMovieTask().execute(sort);
     }
 
-    private class FetchMovieTask extends AsyncTask<SortBy, Void, String[]> {
+    private class FetchMovieTask extends AsyncTask<SortBy, Void, Movie[]> {
 
         @Override
         protected void onPreExecute() {
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         }
 
         @Override
-        protected String[] doInBackground(SortBy... params) {
+        protected Movie[] doInBackground(SortBy... params) {
             if (params.length == 0) {
                 return null;
             }
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
             try {
                 String jsonMovieResponse = NetworkUtils.getResponseFromHttpUrl(movieRequestUrl);
-                String[] movies = JsonUtils.getMovieStringsFromJson(jsonMovieResponse);
+                Movie[] movies = JsonUtils.getMoviesFromJsonString(jsonMovieResponse);
 
                 return movies;
             } catch (Exception e) {
@@ -102,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         }
 
         @Override
-        protected void onPostExecute(String[] movieData) {
+        protected void onPostExecute(Movie[] movieData) {
             mLoadingIndicator.setVisibility(View.INVISIBLE);
             if (movieData != null) {
                 showMovieDataView();
