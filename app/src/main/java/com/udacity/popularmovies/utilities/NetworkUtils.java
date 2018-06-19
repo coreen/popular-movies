@@ -18,9 +18,9 @@ import java.util.Scanner;
 public final class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String MOVIE_DB_BASE_URL = "http://api.themoviedb.org/3/movie/popular";
-    private static final String POPULAR_MOVIES_PATH = "movie/popular";
-    private static final String TOP_RATED_MOVIES_PATH = "movie/top_rated";
+    private static final String MOVIE_DB_BASE_URL = "http://api.themoviedb.org/3/movie";
+    private static final String POPULAR_MOVIES_PATH = "popular";
+    private static final String TOP_RATED_MOVIES_PATH = "top_rated";
     private static final String API_KEY_QUERY = "api_key";
 
     /**
