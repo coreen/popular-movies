@@ -15,10 +15,10 @@ import com.udacity.popularmovies.utilities.JsonUtils;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
     private final MovieAdapterOnClickHandler mClickHandler;
     private Context mContext;
-    private String[] movies;
+    private Movie[] movies;
 
     public interface MovieAdapterOnClickHandler {
-        void onClick(String selectedMovie);
+        void onClick(Movie selectedMovie);
     }
 
     public MovieAdapter(Context mContext, MovieAdapterOnClickHandler mClickHandler) {
@@ -38,7 +38,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            String selectedMovie = movies[adapterPosition];
+            Movie selectedMovie = movies[adapterPosition];
             mClickHandler.onClick(selectedMovie);
         }
     }
@@ -56,8 +56,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     @Override
     public void onBindViewHolder(MovieAdapterViewHolder movieAdapterViewHolder, int position) {
-        String selectedMovieString = movies[position];
-        Movie selectedMovie = JsonUtils.parseMovieJson(selectedMovieString);
+        Movie selectedMovie = movies[position];
         Picasso.with(mContext)
                 .load(selectedMovie.getPosterImageUrl())
                 .placeholder(R.drawable.movie_placeholder)
@@ -79,7 +78,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         return movies.length;
     }
 
-    public void setMovieData(String[] movieData) {
+    public void setMovieData(Movie[] movieData) {
         movies = movieData;
         notifyDataSetChanged();
     }

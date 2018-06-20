@@ -8,11 +8,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DetailTitleText">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:paddingLeft">@dimen/title_text_paddingLeft</item>
+    </style>
+
+    <style name="Poster">
+        <item name="android:layout_width">@dimen/poster_layout_width</item>
+        <item name="android:layout_height">@dimen/poster_layout_height</item>
+        <item name="android:layout_marginLeft">@dimen/poster_layout_marginLeft</item>
+        <item name="android:layout_marginStart">@dimen/poster_layout_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/poster_layout_marginTop</item>
+    </style>
+
     <style name="MovieInfo">
         <item name="android:layout_width">@dimen/movie_info_text_width</item>
         <item name="android:layout_height">@dimen/movie_info_text_height</item>
         <item name="android:layout_marginLeft">@dimen/movie_info_text_margin</item>
         <item name="android:layout_marginStart">@dimen/movie_info_text_margin</item>
         <item name="android:layout_marginTop">@dimen/movie_info_text_margin</item>
+    </style>
+
+    <style name="Summary">
+        <item name="android:layout_marginBottom">@dimen/summary_layout_marginBottom</item>
+        <item name="android:layout_marginEnd">@dimen/summary_layout_marginEnd</item>
+        <item name="android:layout_marginLeft">@dimen/summary_layout_marginLeft</item>
+        <item name="android:layout_marginRight">@dimen/summary_layout_marginRight</item>
+        <item name="android:layout_marginStart">@dimen/summary_layout_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/summary_layout_marginTop</item>
     </style>
 </resources>
