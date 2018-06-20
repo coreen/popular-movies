@@ -31,19 +31,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="bottom|left"
-                android:textColor="@color/colorWhite"
                 android:textStyle="bold"
-                android:textSize="36dp"
-                android:paddingLeft="12dp" />
+                style="@style/DetailTitleText" />
         </FrameLayout>
 
         <ImageView
             android:id="@+id/iv_poster"
-            android:layout_width="160dp"
-            android:layout_height="215dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="28dp"
+            style="@style/Poster"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_title_bar"
             app:srcCompat="@drawable/movie_placeholder" />
@@ -65,11 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
+            style="@style/Summary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.147"
