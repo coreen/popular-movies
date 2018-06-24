@@ -2,6 +2,8 @@ package com.udacity.popularmovies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,19 +38,22 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         setContentView(R.layout.activity_main);
 
         // find and setup views
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_movie);
+        setupRecyclerView();
+        mErrorMessage = findViewById(R.id.tv_error_message);
+        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
+
+        // Default to most popular sort
+        loadMovieData(SortBy.MOST_POPULAR);
+    }
+
+    private void setupRecyclerView() {
+        mRecyclerView = findViewById(R.id.recyclerview_movie);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         mMovieAdapter = new MovieAdapter(this, this);
         mRecyclerView.setAdapter(mMovieAdapter);
-
-        mErrorMessage = (TextView) findViewById(R.id.tv_error_message);
-        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
-
-        // Default to most popular sort
-        loadMovieData(SortBy.MOST_POPULAR);
     }
 
     @Override
@@ -73,7 +78,16 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private void loadMovieData(SortBy sort) {
         showMovieDataView();
 
-        new FetchMovieTask().execute(sort);
+        // Check if have internet connection before kicking off AsyncTask
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (isConnected) {
+            new FetchMovieTask().execute(sort);
+        }
     }
 
     private class FetchMovieTask extends AsyncTask<SortBy, Void, Movie[]> {
