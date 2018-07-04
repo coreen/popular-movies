@@ -7,8 +7,23 @@
 
     <ImageView
         android:id="@+id/iv_movie_thumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop" />
+
+    <!-- Resource: https://www.raywenderlich.com/127544/android-gridview-getting-started -->
+
+    <TextView
+        android:id="@+id/tv_movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|left" />
+
+    <ImageView
+        android:id="@+id/iv_favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/disabled_star"
+        android:layout_gravity="bottom|right" />
 
 </LinearLayout>

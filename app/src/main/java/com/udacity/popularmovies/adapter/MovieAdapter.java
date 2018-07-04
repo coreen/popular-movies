@@ -27,10 +27,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     public class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final ImageView mMovieImageView;
+        public final TextView mMovieTitle;
+        public final ImageView mFavoriteStar;
 
         public MovieAdapterViewHolder(View view) {
             super(view);
             mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie_thumbnail);
+            mMovieTitle = (TextView) view.findViewById(R.id.tv_movie_title);
+            mFavoriteStar = (ImageView) view.findViewById(R.id.iv_favorite);
             view.setOnClickListener(this);
         }
 
@@ -61,6 +65,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                 .placeholder(R.drawable.movie_placeholder)
                 .error(R.drawable.movie_placeholder_error)
                 .into(movieAdapterViewHolder.mMovieImageView);
+        movieAdapterViewHolder.mMovieTitle.setText(selectedMovie.getTitle());
+        movieAdapterViewHolder.mFavoriteStar.setImageResource(
+                selectedMovie.getIsFavorite() ? R.drawable.enabled_star : R.drawable.disabled_star);
     }
 
     /**

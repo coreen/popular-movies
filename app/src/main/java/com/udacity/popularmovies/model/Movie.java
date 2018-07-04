@@ -14,6 +14,7 @@ public final class Movie implements Parcelable {
     private String summary;
     private String releaseDate;
     private String voteAvg;
+    private boolean isFavorite;
 
     public Movie(int id, String title, String backdropPath, String posterPath,
                  String summary, String releaseDate, String voteAvg) {
@@ -24,6 +25,8 @@ public final class Movie implements Parcelable {
         this.summary = summary;
         this.releaseDate = releaseDate;
         this.voteAvg = voteAvg;
+        // TODO(coreeny): make this talk to SQLite for movie favorite status instead of hardcode
+        this.isFavorite = false;
     }
 
     // Note: Must read from parcel in same order contents were added
@@ -62,6 +65,10 @@ public final class Movie implements Parcelable {
 
     public String getVoteAvg() {
         return voteAvg;
+    }
+
+    public boolean getIsFavorite() {
+        return isFavorite;
     }
 
     @Override
