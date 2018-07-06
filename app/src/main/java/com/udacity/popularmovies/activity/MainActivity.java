@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -23,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.udacity.popularmovies.R;
-import com.udacity.popularmovies.activity.DetailActivity;
 import com.udacity.popularmovies.adapter.MovieAdapter;
 import com.udacity.popularmovies.model.Movie;
 import com.udacity.popularmovies.model.SortBy;

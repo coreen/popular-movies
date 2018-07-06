@@ -1,15 +1,17 @@
-package com.udacity.popularmovies;
+package com.udacity.popularmovies.activity;
 
 import android.content.ComponentName;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.udacity.popularmovies.R;
+import com.udacity.popularmovies.fragment.ReviewFragment;
 import com.udacity.popularmovies.model.Movie;
 import com.udacity.popularmovies.model.Review;
 import com.udacity.popularmovies.utilities.JsonUtils;
@@ -18,7 +20,10 @@ import com.udacity.popularmovies.utilities.NetworkUtils;
 import java.net.URL;
 
 public class DetailActivity extends AppCompatActivity {
+    private static final String TAG = DetailActivity.class.getSimpleName();
+
     private static final String MOVIE = "movie";
+    private static final String MOVIE_ID_EXTRA = "movieId";
 
     private ImageView mBackdrop;
     private TextView mTitle;
@@ -56,31 +61,18 @@ public class DetailActivity extends AppCompatActivity {
                 .into(mPoster);
 
         // Grab associated trailer videos and reviews via movieId
-        URL videoRequestUrl = NetworkUtils.buildVideoUrl(selectedMovie.getId());
-        try {
-            String jsonVideoResponse = NetworkUtils.getResponseFromHttpUrl(videoRequestUrl);
-            String[] videoKeys = JsonUtils.parseVideosFromJsonString(jsonVideoResponse);
-            // TODO(coreeny) append necessary backpath to launch in web browser vs YouTube app
-            // Web Browser launch
-            Intent videoIntent = new Intent(
-                    Intent.ACTION_VIEW ,
-                    NetworkUtils.buildDetailVideoUri(videoKeys[i]));
-            // Youtube launch
-            intent.setComponent(new ComponentName(
-                    "com.google.android.youtube",
-                    "com.google.android.youtube.PlayerActivity"));
-            this.startActivity(videoIntent);
-        } catch (Exception e) {
-            // error
-        }
+        int movieId = selectedMovie.getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt(MOVIE_ID_EXTRA, movieId);
 
-        URL reviewRequestUrl = NetworkUtils.buildReviewUrl(selectedMovie.getId());
-        try {
-            String jsonReviewResponse = NetworkUtils.getResponseFromHttpUrl(reviewRequestUrl);
-            Review[] reviews = JsonUtils.parseReviewsFromJsonString(jsonReviewResponse);
-        } catch (Exception e) {
-            // error
-        }
+        ReviewFragment reviewFragment = new ReviewFragment();
+        reviewFragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.review_fragment, reviewFragment)
+                .commit();
+
+        // TODO(coreeny): repeat above fragment creation/initiation for TrailerFragment
     }
 
     private void closeOnError() {
@@ -93,5 +85,31 @@ public class DetailActivity extends AppCompatActivity {
         mReleaseDate.setText("Release Date: " + selectedMovie.getReleaseDate());
         mVoteAvg.setText(selectedMovie.getVoteAvg() + " / 10");
         mMovieSummary.setText(selectedMovie.getSummary());
+    }
+
+    // TODO(coreeny): create Trailer object and return from this helper
+    private void fetchTrailersForMovieId(int movieId, Intent intent) {
+        URL videoRequestUrl = NetworkUtils.buildVideoUrl(movieId);
+        try {
+            String jsonVideoResponse = NetworkUtils.getResponseFromHttpUrl(videoRequestUrl);
+            String[] videoKeys = JsonUtils.parseVideosFromJsonString(jsonVideoResponse);
+            // TODO(coreeny) append necessary backpath to launch in web browser vs YouTube app
+            for (int i = 0; i < videoKeys.length; i++) {
+                // Web Browser launch
+                Intent videoIntent = new Intent(
+                        Intent.ACTION_VIEW ,
+                        NetworkUtils.buildDetailVideoUri(videoKeys[i]));
+                // Youtube launch
+                intent.setComponent(new ComponentName(
+                        "com.google.android.youtube",
+                        "com.google.android.youtube.PlayerActivity"));
+
+                if (videoIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(videoIntent);
+                }
+            }
+        } catch (Exception e) {
+            // error
+        }
     }
 }

@@ -7,6 +7,7 @@ public final class Movie implements Parcelable {
     private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
     private static final String IMAGE_DEFAULT_POSTER_SIZE = "w185";
 
+    private int id;
     private String title;
     private String backdropPath;
     private String posterPath;
@@ -14,8 +15,9 @@ public final class Movie implements Parcelable {
     private String releaseDate;
     private String voteAvg;
 
-    public Movie(String title, String backdropPath, String posterPath, String summary,
-                 String releaseDate, String voteAvg) {
+    public Movie(int id, String title, String backdropPath, String posterPath,
+                 String summary, String releaseDate, String voteAvg) {
+        this.id = id;
         this.title = title;
         this.backdropPath = backdropPath;
         this.posterPath = posterPath;
@@ -26,12 +28,17 @@ public final class Movie implements Parcelable {
 
     // Note: Must read from parcel in same order contents were added
     public Movie(Parcel source) {
+        id = source.readInt();
         title = source.readString();
         backdropPath = source.readString();
         posterPath = source.readString();
         summary = source.readString();
         releaseDate = source.readString();
         voteAvg = source.readString();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -64,6 +71,7 @@ public final class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(backdropPath);
         dest.writeString(posterPath);
