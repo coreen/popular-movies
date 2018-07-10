@@ -113,8 +113,8 @@ public class MainActivity
             sortBundle.putSerializable(SORT_BY_EXTRA, sort);
 
             LoaderManager loaderManager = getSupportLoaderManager();
-            Loader<String> githubSearchLoader = loaderManager.getLoader(MOVIE_SORT_LOADER);
-            if (githubSearchLoader == null) {
+            Loader<String> movieSortLoader = loaderManager.getLoader(MOVIE_SORT_LOADER);
+            if (movieSortLoader == null) {
                 loaderManager.initLoader(MOVIE_SORT_LOADER, sortBundle, this);
             } else {
                 loaderManager.restartLoader(MOVIE_SORT_LOADER, sortBundle, this);

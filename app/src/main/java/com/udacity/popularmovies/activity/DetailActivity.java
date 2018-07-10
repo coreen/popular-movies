@@ -65,11 +65,14 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt(MOVIE_ID_EXTRA, movieId);
 
+        Log.d(TAG, "Passing bundle into review fragment: " + bundle);
+
+        // Pass in the movieId into Fragment for processing
         ReviewFragment reviewFragment = new ReviewFragment();
         reviewFragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.review_fragment, reviewFragment)
+                .add(R.id.review_fragment_placeholder, reviewFragment)
                 .commit();
 
         // TODO(coreeny): repeat above fragment creation/initiation for TrailerFragment

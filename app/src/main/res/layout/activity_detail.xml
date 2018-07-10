@@ -66,9 +66,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_poster" />
 
-        <fragment
-            android:id="@+id/review_fragment"
-            android:name="com.udacity.popularmovies.fragment.ReviewFragment"
+        <!-- Using dynamic fragment creation, instead of static, to pass in movieId bundle  -->
+        <!-- https://github.com/codepath/android_guides/wiki/Creating-and-Using-Fragments -->
+        <FrameLayout
+            android:id="@+id/review_fragment_placeholder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
