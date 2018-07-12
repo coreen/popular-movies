@@ -13,6 +13,12 @@
         android:id="@+id/tv_review_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="bottom|right" />
+        android:layout_gravity="bottom|right" />
+
+    <!-- Separating line between reviews -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000" />
 
 </LinearLayout>
