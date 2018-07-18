@@ -9,15 +9,15 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_review_fragment_header"
+            android:id="@+id/tv_trailer_fragment_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/review_fragment_header"
+            android:text="@string/trailer_fragment_header"
             android:textSize="24dp"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_review"
+        <ListView
+            android:id="@+id/listview_trailer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -26,20 +26,20 @@
             android:verticalSpacing="24dp"
             android:horizontalSpacing="10dp"
             android:stretchMode="spacingWidthUniform"
-            app:layout_constraintTop_toBottomOf="@+id/tv_review_fragment_header"
+            app:layout_constraintTop_toBottomOf="@+id/tv_trailer_fragment_header"
             android:layout_marginTop="24dp" />
 
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/tv_no_reviews"
+        android:id="@+id/tv_no_trailers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/no_reviews"
+        android:text="@string/no_trailers"
         android:visibility="invisible" />
 
     <ProgressBar
-        android:id="@+id/pb_review_loading_indicator"
+        android:id="@+id/pb_trailer_loading_indicator"
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:layout_gravity="center"

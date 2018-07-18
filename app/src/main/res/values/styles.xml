@@ -38,4 +38,11 @@
         <item name="android:layout_marginStart">@dimen/summary_layout_marginStart</item>
         <item name="android:layout_marginTop">@dimen/summary_layout_marginTop</item>
     </style>
+
+    <style name="Fragment">
+        <item name="android:layout_width">@dimen/fragment_layout_width</item>
+        <item name="android:layout_marginLeft">@dimen/fragment_layout_marginLeft</item>
+        <item name="android:layout_marginStart">@dimen/fragment_layout_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/fragment_layout_marginTop</item>
+    </style>
 </resources>

@@ -21,7 +21,7 @@ public class JsonUtils {
     private static final String RELEASE_DATE = "release_date";
     private static final String VOTE_AVG = "vote_average";
 
-    private static final String VIDEO_ID = "key";
+    private static final String VIDEO_KEY = "key";
     private static final String REVIEW_CONTENT = "content";
     private static final String REVIEW_AUTHOR = "author";
 
@@ -59,7 +59,7 @@ public class JsonUtils {
         String[] result = new String[videos.length()];
         for (int i = 0; i < videos.length(); i++) {
             JSONObject video = (JSONObject) videos.get(i);
-            result[i] = video.getString(VIDEO_ID);
+            result[i] = video.getString(VIDEO_KEY);
         }
         return result;
     }

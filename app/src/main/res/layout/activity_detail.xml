@@ -70,13 +70,17 @@
         <!-- https://github.com/codepath/android_guides/wiki/Creating-and-Using-Fragments -->
         <FrameLayout
             android:id="@+id/review_fragment_placeholder"
-            android:layout_width="352dp"
+            style="@style/Fragment"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_summary" />
+
+        <FrameLayout
+            android:id="@+id/trailer_fragment_placeholder"
+            android:layout_height="wrap_content"
+            style="@style/Fragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_fragment_placeholder" />
 
     </android.support.constraint.ConstraintLayout>
 

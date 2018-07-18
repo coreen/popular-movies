@@ -7,13 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.fragment.ReviewFragment;
+import com.udacity.popularmovies.fragment.TrailerFragment;
 import com.udacity.popularmovies.model.Movie;
-import com.udacity.popularmovies.model.Review;
 import com.udacity.popularmovies.utilities.JsonUtils;
 import com.udacity.popularmovies.utilities.NetworkUtils;
 
@@ -38,12 +37,12 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         // find all views of activity
-        mBackdrop = (ImageView) findViewById(R.id.iv_backdrop);
-        mTitle = (TextView) findViewById(R.id.tv_title);
-        mPoster = (ImageView) findViewById(R.id.iv_poster);
-        mReleaseDate = (TextView) findViewById(R.id.tv_release_date);
-        mVoteAvg = (TextView) findViewById(R.id.tv_vote_avg);
-        mMovieSummary = (TextView) findViewById(R.id.tv_summary);
+        mBackdrop = findViewById(R.id.iv_backdrop);
+        mTitle = findViewById(R.id.tv_title);
+        mPoster = findViewById(R.id.iv_poster);
+        mReleaseDate = findViewById(R.id.tv_release_date);
+        mVoteAvg = findViewById(R.id.tv_vote_avg);
+        mMovieSummary = findViewById(R.id.tv_summary);
 
         Intent intent = getIntent();
 
@@ -65,9 +64,9 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt(MOVIE_ID_EXTRA, movieId);
 
-        Log.d(TAG, "Passing bundle into review fragment: " + bundle);
+        Log.d(TAG, "Passing bundle into fragments: " + bundle);
 
-        // Pass in the movieId into Fragment for processing
+        // Pass in the movieId into Fragments for processing
         ReviewFragment reviewFragment = new ReviewFragment();
         reviewFragment.setArguments(bundle);
         getSupportFragmentManager()
@@ -75,12 +74,12 @@ public class DetailActivity extends AppCompatActivity {
                 .add(R.id.review_fragment_placeholder, reviewFragment)
                 .commit();
 
-        // TODO(coreeny): repeat above fragment creation/initiation for TrailerFragment
-    }
-
-    private void closeOnError() {
-        finish();
-        Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
+        TrailerFragment trailerFragment = new TrailerFragment();
+        trailerFragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.trailer_fragment_placeholder, trailerFragment)
+                .commit();
     }
 
     private void populateUI(Movie selectedMovie) {
@@ -88,31 +87,5 @@ public class DetailActivity extends AppCompatActivity {
         mReleaseDate.setText("Release Date: " + selectedMovie.getReleaseDate());
         mVoteAvg.setText(selectedMovie.getVoteAvg() + " / 10");
         mMovieSummary.setText(selectedMovie.getSummary());
-    }
-
-    // TODO(coreeny): create Trailer object and return from this helper
-    private void fetchTrailersForMovieId(int movieId, Intent intent) {
-        URL videoRequestUrl = NetworkUtils.buildVideoUrl(movieId);
-        try {
-            String jsonVideoResponse = NetworkUtils.getResponseFromHttpUrl(videoRequestUrl);
-            String[] videoKeys = JsonUtils.parseVideosFromJsonString(jsonVideoResponse);
-            // TODO(coreeny) append necessary backpath to launch in web browser vs YouTube app
-            for (int i = 0; i < videoKeys.length; i++) {
-                // Web Browser launch
-                Intent videoIntent = new Intent(
-                        Intent.ACTION_VIEW ,
-                        NetworkUtils.buildDetailVideoUri(videoKeys[i]));
-                // Youtube launch
-                intent.setComponent(new ComponentName(
-                        "com.google.android.youtube",
-                        "com.google.android.youtube.PlayerActivity"));
-
-                if (videoIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(videoIntent);
-                }
-            }
-        } catch (Exception e) {
-            // error
-        }
     }
 }
