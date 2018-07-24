@@ -174,8 +174,16 @@ public class TrailerFragment extends Fragment implements LoaderManager.LoaderCal
                 String[] trailers = JsonUtils.parseVideosFromJsonString(data);
                 Log.d(TAG, "trailers to display: " + Arrays.toString(trailers));
 
+                if (trailers.length == 0) {
+                    showNoTrailersMessage();
+                }
+
                 mTrailers = trailers;
-                mAdapter.addAll(trailers);
+                String[] trailerNames = new String[trailers.length];
+                for (int i = 1; i <= trailers.length; i++) {
+                    trailerNames[i - 1] = "Trailer " + i;
+                }
+                mAdapter.addAll(trailerNames);
                 mAdapter.notifyDataSetChanged();
             } catch (JSONException e) {
                 e.printStackTrace();

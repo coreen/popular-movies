@@ -3,40 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ListView
+        android:id="@+id/listview_trailer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/tv_trailer_fragment_header"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/trailer_fragment_header"
-            android:textSize="24dp"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/listview_trailer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:columnWidth="100dp"
-            android:numColumns="auto_fit"
-            android:verticalSpacing="24dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="spacingWidthUniform"
-            app:layout_constraintTop_toBottomOf="@+id/tv_trailer_fragment_header"
-            android:layout_marginTop="24dp" />
-
-    </android.support.constraint.ConstraintLayout>
+        android:layout_height="200dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="36dp" />
 
     <TextView
         android:id="@+id/tv_no_trailers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/no_trailers"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_marginTop="8dp" />
 
     <ProgressBar
         android:id="@+id/pb_trailer_loading_indicator"

@@ -16,14 +16,19 @@
     <dimen name="movie_info_text_margin">44dp</dimen>
 
     <dimen name="summary_layout_marginBottom">8dp</dimen>
-    <dimen name="summary_layout_marginEnd">8dp</dimen>
-    <dimen name="summary_layout_marginLeft">32dp</dimen>
-    <dimen name="summary_layout_marginRight">32dp</dimen>
-    <dimen name="summary_layout_marginStart">32dp</dimen>
+    <dimen name="summary_layout_marginLeft">36dp</dimen>
+    <dimen name="summary_layout_marginStart">36dp</dimen>
+    <dimen name="summary_layout_marginRight">36dp</dimen>
+    <dimen name="summary_layout_marginEnd">36dp</dimen>
     <dimen name="summary_layout_marginTop">24dp</dimen>
 
-    <dimen name="fragment_layout_width">352dp</dimen>
+    <dimen name="fragment_header_layout_marginLeft">36dp</dimen>
+    <dimen name="fragment_header_layout_marginStart">36dp</dimen>
+    <dimen name="fragment_header_layout_marginTop">24dp</dimen>
+    <dimen name="fragment_header_textSize">24dp</dimen>
+
     <dimen name="fragment_layout_marginLeft">36dp</dimen>
     <dimen name="fragment_layout_marginStart">36dp</dimen>
-    <dimen name="fragment_layout_marginTop">24dp</dimen>
+    <dimen name="fragment_layout_marginRight">36dp</dimen>
+    <dimen name="fragment_layout_marginEnd">36dp</dimen>
 </resources>

@@ -153,6 +153,11 @@ public class ReviewFragment extends Fragment implements LoaderManager.LoaderCall
                 showReviewDataView();
                 Log.d(TAG, "ReviewFragment onLoadFinished data: " + data);
                 Review[] reviews = JsonUtils.parseReviewsFromJsonString(data);
+
+                if (reviews.length == 0) {
+                    showNoReviewsMessage();
+                }
+
                 mReviewAdapter.setReviewData(reviews);
             } catch (JSONException e) {
                 e.printStackTrace();
