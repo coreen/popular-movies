@@ -178,18 +178,31 @@ public class MainActivity
         return true;
     }
 
+    // Resource: https://stackoverflow.com/questions/6150080/set-a-menu-item-as-checked-from-code
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mSort == SortBy.MOST_POPULAR) {
+            menu.findItem(R.id.action_most_popular_sort).setChecked(true);
+        } else if (mSort == SortBy.TOP_RATED) {
+            menu.findItem(R.id.action_top_rated_sort).setChecked(true);
+        }
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_most_popular_sort) {
             loadMovieData(SortBy.MOST_POPULAR);
+            item.setChecked(!item.isChecked());
             mSort = SortBy.MOST_POPULAR;
             return true;
         }
 
         if (id == R.id.action_top_rated_sort) {
             loadMovieData(SortBy.TOP_RATED);
+            item.setChecked(!item.isChecked());
             mSort = SortBy.TOP_RATED;
             return true;
         }

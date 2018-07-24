@@ -2,7 +2,9 @@ package com.udacity.popularmovies.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +15,8 @@ import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.model.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
+    private static final String TAG = MovieAdapter.class.getSimpleName();
+
     private final MovieAdapterOnClickHandler mClickHandler;
     private Context mContext;
     private Movie[] movies;
@@ -33,15 +37,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
         public MovieAdapterViewHolder(View view) {
             super(view);
-            mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie_thumbnail);
-            mMovieTitle = (TextView) view.findViewById(R.id.tv_movie_title);
-            mFavoriteStar = (ImageView) view.findViewById(R.id.iv_favorite);
+            mMovieImageView = view.findViewById(R.id.iv_movie_thumbnail);
+            mMovieTitle = view.findViewById(R.id.tv_movie_title);
+            mFavoriteStar = view.findViewById(R.id.iv_favorite);
+
+            // Resource: https://stackoverflow.com/questions/1967039/onclicklistener-x-y-location-of-event
+            mFavoriteStar.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        final int adapterPosition = getAdapterPosition();
+                        Movie selectedMovie = movies[adapterPosition];
+                        selectedMovie.toggleIsFavorite();
+                        Log.d(TAG, "tagging movieId " + selectedMovie.getId() +
+                                " as favorite: " + selectedMovie.getIsFavorite());
+                        notifyItemChanged(adapterPosition);
+                    }
+                    return true;
+                }
+            });
+
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            int adapterPosition = getAdapterPosition();
+            final int adapterPosition = getAdapterPosition();
             Movie selectedMovie = movies[adapterPosition];
             mClickHandler.onClick(selectedMovie);
         }

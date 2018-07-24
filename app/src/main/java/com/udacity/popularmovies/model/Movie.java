@@ -38,6 +38,7 @@ public final class Movie implements Parcelable {
         summary = source.readString();
         releaseDate = source.readString();
         voteAvg = source.readString();
+        isFavorite = source.readByte() != 0;
     }
 
     public int getId() {
@@ -71,6 +72,10 @@ public final class Movie implements Parcelable {
         return isFavorite;
     }
 
+    public void toggleIsFavorite() {
+        isFavorite = !isFavorite;
+    }
+
     @Override
     public int describeContents() {
         return this.hashCode();
@@ -85,10 +90,11 @@ public final class Movie implements Parcelable {
         dest.writeString(summary);
         dest.writeString(releaseDate);
         dest.writeString(voteAvg);
+        // Resource: https://stackoverflow.com/questions/6201311/how-to-read-write-a-boolean-when-implementing-the-parcelable-interface
+        dest.writeByte((byte) (isFavorite ? 1 : 0));
     }
 
-    public static final Parcelable.Creator CREATOR
-            = new Parcelable.Creator() {
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Movie createFromParcel(Parcel in) {
             return new Movie(in);
         }
