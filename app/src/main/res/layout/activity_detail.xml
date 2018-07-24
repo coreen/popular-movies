@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -31,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="bottom|left"
-                android:textStyle="bold"
                 style="@style/DetailTitleText" />
         </FrameLayout>
 
@@ -56,15 +56,51 @@
 
         <TextView
             android:id="@+id/tv_summary"
+            style="@style/Summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            style="@style/Summary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.147"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_poster" />
+
+        <!-- Reviews Section -->
+
+        <TextView
+            android:id="@+id/tv_review_fragment_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FragmentHeader"
+            android:text="@string/review_fragment_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_summary" />
+
+        <!-- Using dynamic fragment creation, instead of static, to pass in movieId bundle  -->
+        <!-- https://github.com/codepath/android_guides/wiki/Creating-and-Using-Fragments -->
+        <FrameLayout
+            android:id="@+id/review_fragment_placeholder"
+            style="@style/Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_review_fragment_header" />
+
+        <!-- Trailers Section -->
+
+        <TextView
+            android:id="@+id/tv_trailer_fragment_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FragmentHeader"
+            android:text="@string/trailer_fragment_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_fragment_placeholder" />
+
+        <FrameLayout
+            android:id="@+id/trailer_fragment_placeholder"
+            style="@style/Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_trailer_fragment_header" />
 
     </android.support.constraint.ConstraintLayout>
 

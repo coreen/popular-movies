@@ -21,7 +21,12 @@ public final class NetworkUtils {
     private static final String MOVIE_DB_BASE_URL = "http://api.themoviedb.org/3/movie";
     private static final String POPULAR_MOVIES_PATH = "popular";
     private static final String TOP_RATED_MOVIES_PATH = "top_rated";
+    private static final String VIDEOS_PATH = "videos";
+    private static final String REVIEWS_PATH = "reviews";
     private static final String API_KEY_QUERY = "api_key";
+
+    private static final String YOUTUBE_BASE_URL = "https://www.youtube.com/watch";
+    private static final String VIDEO_KEY_QUERY = "v";
 
     /**
      * Builds the URL used to talk to the movie db server.
@@ -54,6 +59,44 @@ public final class NetworkUtils {
         return url;
     }
 
+    public static URL buildVideoUrl(int movieId) {
+        Uri builtUri = Uri.parse(MOVIE_DB_BASE_URL).buildUpon()
+                .appendPath(Integer.toString(movieId))
+                .appendPath(VIDEOS_PATH)
+                .appendQueryParameter(API_KEY_QUERY, com.udacity.popularmovies.BuildConfig.apikey)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(TAG, "Built URI " + url);
+
+        return url;
+    }
+
+    public static URL buildReviewUrl(int movieId) {
+        Uri builtUri = Uri.parse(MOVIE_DB_BASE_URL).buildUpon()
+                .appendPath(Integer.toString(movieId))
+                .appendPath(REVIEWS_PATH)
+                .appendQueryParameter(API_KEY_QUERY, com.udacity.popularmovies.BuildConfig.apikey)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(TAG, "Built URI " + url);
+
+        return url;
+    }
+
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -71,5 +114,11 @@ public final class NetworkUtils {
         } finally {
             urlConnection.disconnect();
         }
+    }
+
+    public static Uri buildDetailVideoUri(String videoKey) {
+        return Uri.parse(YOUTUBE_BASE_URL).buildUpon()
+                .appendQueryParameter(VIDEO_KEY_QUERY, videoKey)
+                .build();
     }
 }

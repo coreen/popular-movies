@@ -2,6 +2,13 @@
     <string name="app_name">Popular Movies</string>
     <string name="detail_activity_name">Movie Detail</string>
     <string name="error_message">An Error Occurred</string>
+
     <string name="most_popular_sort">Most Popular</string>
     <string name="top_rated_sort">Top Rated</string>
+
+    <string name="review_fragment_header">Reviews</string>
+    <string name="no_reviews">No Reviews</string>
+
+    <string name="trailer_fragment_header">Trailers</string>
+    <string name="no_trailers">No Trailers</string>
 </resources>
