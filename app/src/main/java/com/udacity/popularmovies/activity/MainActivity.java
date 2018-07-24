@@ -11,8 +11,6 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +18,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.udacity.popularmovies.AutofitRecyclerView;
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.adapter.MovieAdapter;
 import com.udacity.popularmovies.model.Movie;
@@ -43,7 +42,7 @@ public class MainActivity
     // Default to most popular sort
     private SortBy mSort = SortBy.MOST_POPULAR;
 
-    private RecyclerView mRecyclerView;
+    private AutofitRecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
 
     private TextView mErrorMessage;
@@ -71,9 +70,6 @@ public class MainActivity
 
     private void setupRecyclerView() {
         mRecyclerView = findViewById(R.id.recyclerview_movie);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
 
         mMovieAdapter = new MovieAdapter(this, this);
         mRecyclerView.setAdapter(mMovieAdapter);
