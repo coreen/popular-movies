@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.model.Movie;
+import com.udacity.popularmovies.utilities.DataUtils;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
     private static final String TAG = MovieAdapter.class.getSimpleName();
@@ -48,9 +49,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         final int adapterPosition = getAdapterPosition();
                         Movie selectedMovie = movies[adapterPosition];
-                        selectedMovie.toggleIsFavorite(mContext);
-                        Log.d(TAG, "tagging movieId " + selectedMovie.getId() +
-                                " as favorite: " + selectedMovie.getIsFavorite());
+                        DataUtils.toggleIsFavorite(mContext, selectedMovie);
+                        Log.d(TAG, "Tagging movieId " + selectedMovie.getId() +
+                                " as favorite: " + selectedMovie.getIsFavorite(mContext));
                         notifyItemChanged(adapterPosition);
                     }
                     return true;
@@ -88,8 +89,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                 .error(R.drawable.movie_placeholder_error)
                 .into(movieAdapterViewHolder.mMovieImageView);
         movieAdapterViewHolder.mMovieTitle.setText(selectedMovie.getTitle());
-        movieAdapterViewHolder.mFavorite.setImageResource(
-                selectedMovie.getIsFavorite() ? R.drawable.enabled_star : R.drawable.disabled_star);
+        movieAdapterViewHolder.mFavorite.setImageResource(selectedMovie.getIsFavorite(mContext) ?
+                R.drawable.enabled_star :
+                R.drawable.disabled_star);
     }
 
     /**

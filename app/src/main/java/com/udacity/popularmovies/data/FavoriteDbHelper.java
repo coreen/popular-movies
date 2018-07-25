@@ -18,7 +18,7 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String CREATE_TABLE = "CREATE TABLE "  + FavoriteEntry.TABLE_NAME + " (" +
-                FavoriteEntry._ID                  + " INTEGER PRIMARY KEY, " +
+                FavoriteEntry._ID                  + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 FavoriteEntry.COLUMN_MOVIE_ID      + " INTEGER NOT NULL, " +
                 FavoriteEntry.COLUMN_TITLE         + " TEXT NOT NULL, " +
                 FavoriteEntry.COLUMN_BACKDROP_PATH + " TEXT NOT NULL, " +
@@ -26,7 +26,8 @@ public class FavoriteDbHelper extends SQLiteOpenHelper {
                 FavoriteEntry.COLUMN_SUMMARY       + " TEXT NOT NULL, " +
                 FavoriteEntry.COLUMN_RELEASE_DATE  + " TEXT NOT NULL, " +
                 FavoriteEntry.COLUMN_VOTE_AVG      + " TEXT NOT NULL, " +
-                FavoriteEntry.COLUMN_IS_FAVORITE   + " INTEGER NOT NULL);";
+                FavoriteEntry.COLUMN_IS_FAVORITE   + " INTEGER NOT NULL" +
+                ");";
 
         db.execSQL(CREATE_TABLE);
     }

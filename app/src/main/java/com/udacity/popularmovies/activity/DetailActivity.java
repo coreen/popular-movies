@@ -1,5 +1,6 @@
 package com.udacity.popularmovies.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.fragment.ReviewFragment;
 import com.udacity.popularmovies.fragment.TrailerFragment;
 import com.udacity.popularmovies.model.Movie;
+import com.udacity.popularmovies.utilities.DataUtils;
 
 public class DetailActivity extends AppCompatActivity {
     private static final String TAG = DetailActivity.class.getSimpleName();
@@ -58,17 +60,20 @@ public class DetailActivity extends AppCompatActivity {
                 .error(R.drawable.movie_placeholder_error)
                 .into(mPoster);
 
-        mFavoriteStar.setImageResource(
-                selectedMovie.getIsFavorite() ? R.drawable.enabled_star : R.drawable.disabled_star);
+        final Context context = getBaseContext();
+        mFavoriteStar.setImageResource(selectedMovie.getIsFavorite(context) ?
+                R.drawable.enabled_star :
+                R.drawable.disabled_star);
         mFavoriteStar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    selectedMovie.toggleIsFavorite(getBaseContext());
-                    Log.d(TAG, "tagging movieId " + selectedMovie.getId() +
-                            " as favorite: " + selectedMovie.getIsFavorite());
-                    mFavoriteStar.setImageResource(
-                            selectedMovie.getIsFavorite() ? R.drawable.enabled_star : R.drawable.disabled_star);
+                    DataUtils.toggleIsFavorite(context, selectedMovie);
+                    Log.d(TAG, "Tagging movieId " + selectedMovie.getId() +
+                            " as favorite: " + selectedMovie.getIsFavorite(context));
+                    mFavoriteStar.setImageResource(selectedMovie.getIsFavorite(context) ?
+                            R.drawable.enabled_star :
+                            R.drawable.disabled_star);
                 }
                 return true;
             }

@@ -28,11 +28,6 @@ public class FavoriteContentProvider extends ContentProvider {
         // Initialize a UriMatcher with no matches by passing in NO_MATCH to the constructor
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        /*
-          All paths added to the UriMatcher have a corresponding int.
-          For each kind of uri you may want to access, add the corresponding match with addURI.
-          The two calls below add matches for the task directory and a single item by ID.
-         */
         uriMatcher.addURI(FavoriteContract.AUTHORITY, FavoriteContract.PATH_FAVORITES, FAVORITES);
         uriMatcher.addURI(
                 FavoriteContract.AUTHORITY,
@@ -124,6 +119,12 @@ public class FavoriteContentProvider extends ContentProvider {
         int tasksDeleted = 0;
 
         switch (match) {
+            case FAVORITES:
+                tasksDeleted = db.delete(
+                        FavoriteEntry.TABLE_NAME,
+                        selection,
+                        selectionArgs);
+                break;
             case FAVORITE_WITH_ID:
                 String id = uri.getPathSegments().get(1);
                 tasksDeleted = db.delete(
