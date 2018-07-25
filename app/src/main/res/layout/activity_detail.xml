@@ -42,11 +42,18 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_title_bar"
             app:srcCompat="@drawable/movie_placeholder" />
 
+        <ImageView
+            android:id="@+id/iv_favorite_star"
+            style="@style/FavoriteStar"
+            android:src="@drawable/disabled_star"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_title_bar" />
+
         <TextView
             android:id="@+id/tv_release_date"
             style="@style/MovieInfo"
             app:layout_constraintStart_toEndOf="@+id/iv_poster"
-            app:layout_constraintTop_toBottomOf="@+id/layout_title_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_favorite_star" />
 
         <TextView
             android:id="@+id/tv_vote_avg"

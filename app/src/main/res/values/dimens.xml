@@ -11,9 +11,17 @@
     <dimen name="poster_layout_marginStart">36dp</dimen>
     <dimen name="poster_layout_marginTop">28dp</dimen>
 
+    <dimen name="favorite_star_layout_width">48dp</dimen>
+    <dimen name="favorite_star_layout_height">48dp</dimen>
+    <dimen name="favorite_star_layout_marginEnd">36dp</dimen>
+    <dimen name="favorite_star_layout_marginRight">36dp</dimen>
+    <dimen name="favorite_star_layout_marginTop">36dp</dimen>
+
     <dimen name="movie_info_text_width">132dp</dimen>
     <dimen name="movie_info_text_height">40dp</dimen>
-    <dimen name="movie_info_text_margin">44dp</dimen>
+    <dimen name="movie_info_text_marginLeft">44dp</dimen>
+    <dimen name="movie_info_text_marginStart">44dp</dimen>
+    <dimen name="movie_info_text_marginTop">28dp</dimen>
 
     <dimen name="summary_layout_marginBottom">8dp</dimen>
     <dimen name="summary_layout_marginLeft">36dp</dimen>

@@ -33,22 +33,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     public class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final ImageView mMovieImageView;
         public final TextView mMovieTitle;
-        public final ImageView mFavoriteStar;
+        public final ImageView mFavorite;
 
         public MovieAdapterViewHolder(View view) {
             super(view);
             mMovieImageView = view.findViewById(R.id.iv_movie_thumbnail);
             mMovieTitle = view.findViewById(R.id.tv_movie_title);
-            mFavoriteStar = view.findViewById(R.id.iv_favorite);
+            mFavorite = view.findViewById(R.id.iv_favorite);
 
             // Resource: https://stackoverflow.com/questions/1967039/onclicklistener-x-y-location-of-event
-            mFavoriteStar.setOnTouchListener(new View.OnTouchListener() {
+            mFavorite.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         final int adapterPosition = getAdapterPosition();
                         Movie selectedMovie = movies[adapterPosition];
-                        selectedMovie.toggleIsFavorite();
+                        selectedMovie.toggleIsFavorite(mContext);
                         Log.d(TAG, "tagging movieId " + selectedMovie.getId() +
                                 " as favorite: " + selectedMovie.getIsFavorite());
                         notifyItemChanged(adapterPosition);
@@ -88,7 +88,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                 .error(R.drawable.movie_placeholder_error)
                 .into(movieAdapterViewHolder.mMovieImageView);
         movieAdapterViewHolder.mMovieTitle.setText(selectedMovie.getTitle());
-        movieAdapterViewHolder.mFavoriteStar.setImageResource(
+        movieAdapterViewHolder.mFavorite.setImageResource(
                 selectedMovie.getIsFavorite() ? R.drawable.enabled_star : R.drawable.disabled_star);
     }
 

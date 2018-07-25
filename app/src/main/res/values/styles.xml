@@ -23,12 +23,20 @@
         <item name="android:layout_marginTop">@dimen/poster_layout_marginTop</item>
     </style>
 
+    <style name="FavoriteStar">
+        <item name="android:layout_width">@dimen/favorite_star_layout_width</item>
+        <item name="android:layout_height">@dimen/favorite_star_layout_height</item>
+        <item name="android:layout_marginEnd">@dimen/favorite_star_layout_marginEnd</item>
+        <item name="android:layout_marginRight">@dimen/favorite_star_layout_marginRight</item>
+        <item name="android:layout_marginTop">@dimen/favorite_star_layout_marginTop</item>
+    </style>
+
     <style name="MovieInfo">
         <item name="android:layout_width">@dimen/movie_info_text_width</item>
         <item name="android:layout_height">@dimen/movie_info_text_height</item>
-        <item name="android:layout_marginLeft">@dimen/movie_info_text_margin</item>
-        <item name="android:layout_marginStart">@dimen/movie_info_text_margin</item>
-        <item name="android:layout_marginTop">@dimen/movie_info_text_margin</item>
+        <item name="android:layout_marginLeft">@dimen/movie_info_text_marginLeft</item>
+        <item name="android:layout_marginStart">@dimen/movie_info_text_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/movie_info_text_marginTop</item>
     </style>
 
     <style name="Summary">

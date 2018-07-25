@@ -1,10 +1,11 @@
 package com.udacity.popularmovies.activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,10 +14,6 @@ import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.fragment.ReviewFragment;
 import com.udacity.popularmovies.fragment.TrailerFragment;
 import com.udacity.popularmovies.model.Movie;
-import com.udacity.popularmovies.utilities.JsonUtils;
-import com.udacity.popularmovies.utilities.NetworkUtils;
-
-import java.net.URL;
 
 public class DetailActivity extends AppCompatActivity {
     private static final String TAG = DetailActivity.class.getSimpleName();
@@ -27,6 +24,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView mBackdrop;
     private TextView mTitle;
     private ImageView mPoster;
+    private ImageView mFavoriteStar;
     private TextView mReleaseDate;
     private TextView mVoteAvg;
     private TextView mMovieSummary;
@@ -40,13 +38,14 @@ public class DetailActivity extends AppCompatActivity {
         mBackdrop = findViewById(R.id.iv_backdrop);
         mTitle = findViewById(R.id.tv_title);
         mPoster = findViewById(R.id.iv_poster);
+        mFavoriteStar = findViewById(R.id.iv_favorite_star);
         mReleaseDate = findViewById(R.id.tv_release_date);
         mVoteAvg = findViewById(R.id.tv_vote_avg);
         mMovieSummary = findViewById(R.id.tv_summary);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
-        Movie selectedMovie = intent.getParcelableExtra(MOVIE);
+        final Movie selectedMovie = intent.getParcelableExtra(MOVIE);
         populateUI(selectedMovie);
         Picasso.with(this)
                 .load(selectedMovie.getBackdropImageUrl())
@@ -58,6 +57,22 @@ public class DetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.movie_placeholder)
                 .error(R.drawable.movie_placeholder_error)
                 .into(mPoster);
+
+        mFavoriteStar.setImageResource(
+                selectedMovie.getIsFavorite() ? R.drawable.enabled_star : R.drawable.disabled_star);
+        mFavoriteStar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    selectedMovie.toggleIsFavorite(getBaseContext());
+                    Log.d(TAG, "tagging movieId " + selectedMovie.getId() +
+                            " as favorite: " + selectedMovie.getIsFavorite());
+                    mFavoriteStar.setImageResource(
+                            selectedMovie.getIsFavorite() ? R.drawable.enabled_star : R.drawable.disabled_star);
+                }
+                return true;
+            }
+        });
 
         // Grab associated trailer videos and reviews via movieId
         int movieId = selectedMovie.getId();
@@ -84,8 +99,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private void populateUI(Movie selectedMovie) {
         mTitle.setText(selectedMovie.getTitle());
-        mReleaseDate.setText("Release Date: " + selectedMovie.getReleaseDate());
-        mVoteAvg.setText(selectedMovie.getVoteAvg() + " / 10");
-        mMovieSummary.setText(selectedMovie.getSummary());
+        mReleaseDate.setText("Release Date:\n" + selectedMovie.getReleaseDate());
+        mVoteAvg.setText("Rating: " + selectedMovie.getVoteAvg() + " / 10");
+        mMovieSummary.setText("Synopsis:\n" + selectedMovie.getSummary());
     }
 }
