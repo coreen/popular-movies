@@ -2,11 +2,15 @@ package com.udacity.popularmovies.model;
 
 public enum SortBy {
     /**
-     * NetworkUtils.buildPopularMoviesUrl()
+     * Most popular url results
      */
     MOST_POPULAR,
     /**
-     * NetworkUtils.buildTopRatedMoviesUrl()
+     * Top rated url results
      */
-    TOP_RATED
+    TOP_RATED,
+    /**
+     * All entries in "favorites" database
+     */
+    FAVORITES
 }

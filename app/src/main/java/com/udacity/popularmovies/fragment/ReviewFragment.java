@@ -111,6 +111,8 @@ public class ReviewFragment extends Fragment implements LoaderManager.LoaderCall
             } else {
                 loaderManager.restartLoader(MOVIE_REVIEW_LOADER, bundle, this);
             }
+        } else {
+            showNoReviewsMessage();
         }
     }
 
