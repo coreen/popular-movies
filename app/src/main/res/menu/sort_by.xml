@@ -10,13 +10,19 @@
             android:id="@+id/action_most_popular_sort"
             android:orderInCategory="1"
             android:title="@string/most_popular_sort"
-            app:showAsAction="collapseActionView"/>
+            app:showAsAction="collapseActionView" />
 
         <item
             android:id="@+id/action_top_rated_sort"
             android:orderInCategory="2"
             android:title="@string/top_rated_sort"
-            app:showAsAction="collapseActionView"/>
+            app:showAsAction="collapseActionView" />
+
+        <item
+            android:id="@+id/action_favorites_sort"
+            android:orderInCategory="3"
+            android:title="@string/favorites_sort"
+            app:showAsAction="collapseActionView" />
 
     </group>
 

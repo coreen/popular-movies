@@ -48,9 +48,18 @@ public final class Movie implements Parcelable {
         return title;
     }
 
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
     public String getBackdropImageUrl() {
         return IMAGE_BASE_URL + IMAGE_DEFAULT_POSTER_SIZE + "/" + backdropPath;
     }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
     public String getPosterImageUrl() {
         return IMAGE_BASE_URL + IMAGE_DEFAULT_POSTER_SIZE + "/" + posterPath;
     }

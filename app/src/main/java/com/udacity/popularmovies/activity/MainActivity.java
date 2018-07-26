@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.udacity.popularmovies.AutofitRecyclerView;
 import com.udacity.popularmovies.R;
 import com.udacity.popularmovies.adapter.MovieAdapter;
+import com.udacity.popularmovies.fragment.FavoriteFragment;
 import com.udacity.popularmovies.model.Movie;
 import com.udacity.popularmovies.model.SortBy;
 import com.udacity.popularmovies.utilities.JsonUtils;
@@ -47,6 +49,8 @@ public class MainActivity
 
     private TextView mErrorMessage;
     private ProgressBar mLoadingIndicator;
+
+    private FavoriteFragment mFavoriteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +90,53 @@ public class MainActivity
 
     private void showMovieDataView() {
         mErrorMessage.setVisibility(View.INVISIBLE);
+        if (mFavoriteFragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .hide(mFavoriteFragment)
+                    .commit();
+        }
         mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showFavoritesDataView() {
+        mErrorMessage.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        // Resource: https://stackoverflow.com/questions/14347588/show-hide-fragment-in-android
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (mFavoriteFragment == null) {
+            mFavoriteFragment = new FavoriteFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.favorites_fragment_placeholder, mFavoriteFragment)
+                    .commit();
+        } else {
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .show(mFavoriteFragment)
+                    .commit();
+        }
     }
 
     private void showErrorMessage(){
         mRecyclerView.setVisibility(View.INVISIBLE);
+        if (mFavoriteFragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .hide(mFavoriteFragment)
+                    .commit();
+        }
         mErrorMessage.setVisibility(View.VISIBLE);
     }
 
     private void loadMovieData(SortBy sort) {
+        if (sort == SortBy.FAVORITES) {
+            showFavoritesDataView();
+            return;
+        }
+
         showMovieDataView();
 
         // Check if have internet connection before kicking off AsyncTask
@@ -115,6 +157,8 @@ public class MainActivity
             } else {
                 loaderManager.restartLoader(MOVIE_SORT_LOADER, sortBundle, this);
             }
+        } else {
+            showErrorMessage();
         }
     }
 
@@ -181,33 +225,44 @@ public class MainActivity
     // Resource: https://stackoverflow.com/questions/6150080/set-a-menu-item-as-checked-from-code
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mSort == SortBy.MOST_POPULAR) {
-            menu.findItem(R.id.action_most_popular_sort).setChecked(true);
-        } else if (mSort == SortBy.TOP_RATED) {
-            menu.findItem(R.id.action_top_rated_sort).setChecked(true);
+        switch (mSort) {
+            case MOST_POPULAR:
+                menu.findItem(R.id.action_most_popular_sort).setChecked(true);
+                break;
+            case TOP_RATED:
+                menu.findItem(R.id.action_top_rated_sort).setChecked(true);
+                break;
+            case FAVORITES:
+                menu.findItem(R.id.action_favorites_sort).setChecked(true);
+                break;
+            default:
+                menu.findItem(R.id.action_most_popular_sort).setChecked(true);
+                break;
         }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_most_popular_sort) {
-            loadMovieData(SortBy.MOST_POPULAR);
-            item.setChecked(!item.isChecked());
-            mSort = SortBy.MOST_POPULAR;
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_most_popular_sort:
+                loadMovieData(SortBy.MOST_POPULAR);
+                item.setChecked(!item.isChecked());
+                mSort = SortBy.MOST_POPULAR;
+                return true;
+            case R.id.action_top_rated_sort:
+                loadMovieData(SortBy.TOP_RATED);
+                item.setChecked(!item.isChecked());
+                mSort = SortBy.TOP_RATED;
+                return true;
+            case R.id.action_favorites_sort:
+                loadMovieData(SortBy.FAVORITES);
+                item.setChecked(!item.isChecked());
+                mSort = SortBy.FAVORITES;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        if (id == R.id.action_top_rated_sort) {
-            loadMovieData(SortBy.TOP_RATED);
-            item.setChecked(!item.isChecked());
-            mSort = SortBy.TOP_RATED;
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -30,8 +30,8 @@ public class DataUtils {
         ContentValues contentValues = new ContentValues();
         contentValues.put(FavoriteEntry.COLUMN_MOVIE_ID, movie.getId());
         contentValues.put(FavoriteEntry.COLUMN_TITLE, movie.getTitle());
-        contentValues.put(FavoriteEntry.COLUMN_BACKDROP_PATH, movie.getBackdropImageUrl());
-        contentValues.put(FavoriteEntry.COLUMN_POSTER_PATH, movie.getPosterImageUrl());
+        contentValues.put(FavoriteEntry.COLUMN_BACKDROP_PATH, movie.getBackdropPath());
+        contentValues.put(FavoriteEntry.COLUMN_POSTER_PATH, movie.getPosterPath());
         contentValues.put(FavoriteEntry.COLUMN_SUMMARY, movie.getSummary());
         contentValues.put(FavoriteEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
         contentValues.put(FavoriteEntry.COLUMN_VOTE_AVG, movie.getVoteAvg());
@@ -73,15 +73,5 @@ public class DataUtils {
         final int isFavorite = cursor.getInt(
                 cursor.getColumnIndex(FavoriteEntry.COLUMN_IS_FAVORITE));
         return isFavorite == 1;
-    }
-
-    public static Cursor getAllFavorites(Context context) {
-        return context.getContentResolver().query(
-                FavoriteEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-        );
     }
 }

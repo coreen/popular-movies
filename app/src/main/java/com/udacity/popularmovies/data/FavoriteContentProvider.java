@@ -116,7 +116,7 @@ public class FavoriteContentProvider extends ContentProvider {
         final SQLiteDatabase db = mFavoriteDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
-        int tasksDeleted = 0;
+        int tasksDeleted;
 
         switch (match) {
             case FAVORITES:
@@ -150,7 +150,7 @@ public class FavoriteContentProvider extends ContentProvider {
         final SQLiteDatabase db = mFavoriteDbHelper.getWritableDatabase();
 
         final int match = sUriMatcher.match(uri);
-        int retrieveValue = 0;
+        int retrieveValue;
 
         switch (match) {
             case FAVORITES: {

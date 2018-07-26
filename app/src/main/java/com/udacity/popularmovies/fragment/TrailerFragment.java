@@ -80,7 +80,7 @@ public class TrailerFragment extends Fragment implements LoaderManager.LoaderCal
         });
 
         Bundle bundle = getArguments();
-        Log.d(TAG, "received bundle in TrailerFragment: " + bundle);
+        Log.d(TAG, "Received bundle in TrailerFragment: " + bundle);
         if (bundle != null) {
             loadTrailerData(bundle);
         }
@@ -130,6 +130,8 @@ public class TrailerFragment extends Fragment implements LoaderManager.LoaderCal
             } else {
                 loaderManager.restartLoader(MOVIE_TRAILER_LOADER, bundle, this);
             }
+        } else {
+            showNoTrailersMessage();
         }
     }
 
