@@ -10,7 +10,7 @@ public final class Movie implements Parcelable {
     private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
     private static final String IMAGE_DEFAULT_POSTER_SIZE = "w185";
 
-    private int id;
+    private int movieId;
     private String title;
     private String backdropPath;
     private String posterPath;
@@ -18,9 +18,9 @@ public final class Movie implements Parcelable {
     private String releaseDate;
     private String voteAvg;
 
-    public Movie(int id, String title, String backdropPath, String posterPath,
+    public Movie(int movieId, String title, String backdropPath, String posterPath,
                  String summary, String releaseDate, String voteAvg) {
-        this.id = id;
+        this.movieId = movieId;
         this.title = title;
         this.backdropPath = backdropPath;
         this.posterPath = posterPath;
@@ -31,7 +31,7 @@ public final class Movie implements Parcelable {
 
     // Note: Must read from parcel in same order contents were added
     public Movie(Parcel source) {
-        id = source.readInt();
+        movieId = source.readInt();
         title = source.readString();
         backdropPath = source.readString();
         posterPath = source.readString();
@@ -40,8 +40,8 @@ public final class Movie implements Parcelable {
         voteAvg = source.readString();
     }
 
-    public int getId() {
-        return id;
+    public int getMovieId() {
+        return movieId;
     }
 
     public String getTitle() {
@@ -77,7 +77,7 @@ public final class Movie implements Parcelable {
     }
 
     public boolean getIsFavorite(Context context) {
-        return DataUtils.getFavorite(context, id);
+        return DataUtils.getFavorite(context, movieId);
     }
 
     @Override
@@ -87,7 +87,7 @@ public final class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeInt(movieId);
         dest.writeString(title);
         dest.writeString(backdropPath);
         dest.writeString(posterPath);

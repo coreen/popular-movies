@@ -7,7 +7,7 @@
         android:id="@+id/recyclerview_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="200dp" />
+        android:columnWidth="@dimen/autofit_rv_columnWidth" />
 
     <FrameLayout
         android:id="@+id/favorites_fragment_placeholder"
@@ -18,16 +18,11 @@
         android:id="@+id/tv_error_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/error_message"
-        android:textSize="20sp"
-        android:visibility="invisible" />
+        style="@style/ErrorMessageText"
+        android:text="@string/error_message" />
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
+        style="@style/LoadingIndicator" />
 
 </FrameLayout>

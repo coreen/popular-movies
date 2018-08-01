@@ -54,7 +54,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                         final int adapterPosition = getAdapterPosition();
                         Movie selectedMovie = getMovieFromCursor(adapterPosition);
                         DataUtils.toggleIsFavorite(mContext, selectedMovie);
-                        Log.d(TAG, "Tagging movieId " + selectedMovie.getId() +
+                        Log.d(TAG, "Tagging movieId " + selectedMovie.getMovieId() +
                                 " as favorite: " + selectedMovie.getIsFavorite(mContext));
                         notifyItemChanged(adapterPosition);
                     }

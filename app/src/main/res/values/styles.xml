@@ -8,27 +8,40 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ErrorMessageText">
+        <item name="android:padding">@dimen/error_message_padding</item>
+        <item name="android:textSize">@dimen/error_message_textSize</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="LoadingIndicator">
+        <item name="android:layout_width">@dimen/loading_indicator_size</item>
+        <item name="android:layout_height">@dimen/loading_indicator_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
     <style name="DetailTitleText">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:paddingLeft">@dimen/title_text_paddingLeft</item>
+        <item name="android:textSize">@dimen/title_textSize</item>
+        <item name="android:paddingLeft">@dimen/title_paddingLeft</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Poster">
         <item name="android:layout_width">@dimen/poster_layout_width</item>
         <item name="android:layout_height">@dimen/poster_layout_height</item>
-        <item name="android:layout_marginLeft">@dimen/poster_layout_marginLeft</item>
-        <item name="android:layout_marginStart">@dimen/poster_layout_marginStart</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
         <item name="android:layout_marginTop">@dimen/poster_layout_marginTop</item>
     </style>
 
     <style name="FavoriteStar">
         <item name="android:layout_width">@dimen/favorite_star_layout_width</item>
         <item name="android:layout_height">@dimen/favorite_star_layout_height</item>
-        <item name="android:layout_marginEnd">@dimen/favorite_star_layout_marginEnd</item>
-        <item name="android:layout_marginRight">@dimen/favorite_star_layout_marginRight</item>
-        <item name="android:layout_marginTop">@dimen/favorite_star_layout_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:layout_marginTop">@dimen/default_margin</item>
     </style>
 
     <style name="MovieInfo">
@@ -41,25 +54,30 @@
 
     <style name="Summary">
         <item name="android:layout_marginBottom">@dimen/summary_layout_marginBottom</item>
-        <item name="android:layout_marginLeft">@dimen/summary_layout_marginLeft</item>
-        <item name="android:layout_marginStart">@dimen/summary_layout_marginStart</item>
-        <item name="android:layout_marginRight">@dimen/summary_layout_marginRight</item>
-        <item name="android:layout_marginEnd">@dimen/summary_layout_marginEnd</item>
         <item name="android:layout_marginTop">@dimen/summary_layout_marginTop</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
     </style>
 
     <style name="FragmentHeader">
-        <item name="android:layout_marginLeft">@dimen/fragment_header_layout_marginLeft</item>
-        <item name="android:layout_marginStart">@dimen/fragment_header_layout_marginStart</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
         <item name="android:layout_marginTop">@dimen/fragment_header_layout_marginTop</item>
         <item name="android:textSize">@dimen/fragment_header_textSize</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Fragment">
-        <item name="android:layout_marginLeft">@dimen/fragment_layout_marginLeft</item>
-        <item name="android:layout_marginStart">@dimen/fragment_layout_marginStart</item>
-        <item name="android:layout_marginRight">@dimen/fragment_layout_marginRight</item>
-        <item name="android:layout_marginEnd">@dimen/fragment_layout_marginEnd</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+    </style>
+
+    <style name="FragmentScroll">
+        <item name="android:layout_height">@dimen/fragment_rv_layout_height</item>
+        <item name="android:layout_marginTop">@dimen/fragment_rv_marginTop</item>
     </style>
 </resources>

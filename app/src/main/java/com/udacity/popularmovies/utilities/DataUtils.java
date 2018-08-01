@@ -19,7 +19,7 @@ public class DataUtils {
     public static boolean toggleIsFavorite(Context context, Movie movie) {
         boolean isFavorite = movie.getIsFavorite(context);
         if (isFavorite) {
-            removeFavorite(context, movie.getId());
+            removeFavorite(context, movie.getMovieId());
         } else {
             addFavorite(context, movie);
         }
@@ -28,7 +28,7 @@ public class DataUtils {
 
     private static Uri addFavorite(Context context, Movie movie) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(FavoriteEntry.COLUMN_MOVIE_ID, movie.getId());
+        contentValues.put(FavoriteEntry.COLUMN_MOVIE_ID, movie.getMovieId());
         contentValues.put(FavoriteEntry.COLUMN_TITLE, movie.getTitle());
         contentValues.put(FavoriteEntry.COLUMN_BACKDROP_PATH, movie.getBackdropPath());
         contentValues.put(FavoriteEntry.COLUMN_POSTER_PATH, movie.getPosterPath());

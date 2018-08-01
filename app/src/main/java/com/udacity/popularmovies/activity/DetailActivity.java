@@ -69,7 +69,7 @@ public class DetailActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     DataUtils.toggleIsFavorite(context, selectedMovie);
-                    Log.d(TAG, "Tagging movieId " + selectedMovie.getId() +
+                    Log.d(TAG, "Tagging movieId " + selectedMovie.getMovieId() +
                             " as favorite: " + selectedMovie.getIsFavorite(context));
                     mFavoriteStar.setImageResource(selectedMovie.getIsFavorite(context) ?
                             R.drawable.enabled_star :
@@ -80,7 +80,7 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         // Grab associated trailer videos and reviews via movieId
-        int movieId = selectedMovie.getId();
+        int movieId = selectedMovie.getMovieId();
         Bundle bundle = new Bundle();
         bundle.putInt(MOVIE_ID_EXTRA, movieId);
 

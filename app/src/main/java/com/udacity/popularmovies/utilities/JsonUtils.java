@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class JsonUtils {
 
     private static final String RESULTS = "results";
-    private static final String ID = "id";
+    private static final String MOVIE_ID = "id";
     private static final String TITLE = "title";
     private static final String BACKDROP_IMAGE_PATH = "backdrop_path";
     private static final String POSTER_IMAGE_PATH = "poster_path";
@@ -37,20 +37,16 @@ public class JsonUtils {
     }
 
     public static Movie parseMovieJson(JSONObject json) {
-        try {
-            final int id = json.getInt(ID);
-            final String title = json.getString(TITLE);
-            final String backdropImagePath = json.getString(BACKDROP_IMAGE_PATH);
-            final String posterImagePath = json.getString(POSTER_IMAGE_PATH);
-            final String summary = json.getString(SUMMARY);
-            final String releaseDate = json.getString(RELEASE_DATE);
-            final String voteAvg = json.getString(VOTE_AVG);
+        final int movieId = json.optInt(MOVIE_ID);
+        final String title = json.optString(TITLE);
+        final String backdropImagePath = json.optString(BACKDROP_IMAGE_PATH);
+        final String posterImagePath = json.optString(POSTER_IMAGE_PATH);
+        final String summary = json.optString(SUMMARY);
+        final String releaseDate = json.optString(RELEASE_DATE);
+        final String voteAvg = json.optString(VOTE_AVG);
 
-            return new Movie(id, title, backdropImagePath, posterImagePath,
-                    summary, releaseDate, voteAvg);
-        } catch (JSONException e) {
-            return null;
-        }
+        return new Movie(movieId, title, backdropImagePath, posterImagePath,
+                summary, releaseDate, voteAvg);
     }
 
     public static String[] parseVideosFromJsonString(String json) throws JSONException {
@@ -59,7 +55,7 @@ public class JsonUtils {
         String[] result = new String[videos.length()];
         for (int i = 0; i < videos.length(); i++) {
             JSONObject video = (JSONObject) videos.get(i);
-            result[i] = video.getString(VIDEO_KEY);
+            result[i] = video.optString(VIDEO_KEY);
         }
         return result;
     }
@@ -76,13 +72,9 @@ public class JsonUtils {
     }
 
     public static Review parseReviewJson(JSONObject json) {
-        try {
-            final String content = json.getString(REVIEW_CONTENT);
-            final String author = json.getString(REVIEW_AUTHOR);
+        final String content = json.optString(REVIEW_CONTENT);
+        final String author = json.optString(REVIEW_AUTHOR);
 
-            return new Review(content, author);
-        } catch (JSONException e) {
-            return null;
-        }
+        return new Review(content, author);
     }
 }
