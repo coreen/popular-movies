@@ -290,9 +290,7 @@ public class MainActivity
     protected void onResume() {
         super.onResume();
         if (mListState != null) {
-            mRecyclerView
-                    .getLayoutManager()
-                    .onRestoreInstanceState(mListState);
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
         }
     }
 }
