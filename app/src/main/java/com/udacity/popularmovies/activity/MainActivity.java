@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,9 +37,11 @@ import java.net.URL;
 public class MainActivity
         extends AppCompatActivity
         implements MovieAdapter.MovieAdapterOnClickHandler, LoaderManager.LoaderCallbacks<String> {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     public static final String MOVIE = "movie";
     public static final String SORT_BY_EXTRA = "sortBy";
+    public static final String SCROLL_POSITION_EXTRA = "scrollPosition";
 
     private static final int MOVIE_SORT_LOADER = 22;
 
@@ -46,6 +50,7 @@ public class MainActivity
 
     private AutofitRecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
+    private Parcelable mListState;
 
     private TextView mErrorMessage;
     private ProgressBar mLoadingIndicator;
@@ -107,8 +112,7 @@ public class MainActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (mFavoriteFragment == null) {
             mFavoriteFragment = new FavoriteFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
+            fragmentManager.beginTransaction()
                     .add(R.id.favorites_fragment_placeholder, mFavoriteFragment)
                     .commit();
         } else {
@@ -119,7 +123,7 @@ public class MainActivity
         }
     }
 
-    private void showErrorMessage(){
+    private void showErrorMessage() {
         mRecyclerView.setVisibility(View.INVISIBLE);
         if (mFavoriteFragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -132,6 +136,7 @@ public class MainActivity
     }
 
     private void loadMovieData(SortBy sort) {
+        Log.d(TAG, "loadMovieData sort: " + sort);
         if (sort == SortBy.FAVORITES) {
             showFavoritesDataView();
             return;
@@ -147,15 +152,11 @@ public class MainActivity
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         if (isConnected) {
-            Bundle sortBundle = new Bundle();
-            sortBundle.putSerializable(SORT_BY_EXTRA, sort);
-
             LoaderManager loaderManager = getSupportLoaderManager();
-            Loader<String> movieSortLoader = loaderManager.getLoader(MOVIE_SORT_LOADER);
-            if (movieSortLoader == null) {
-                loaderManager.initLoader(MOVIE_SORT_LOADER, sortBundle, this);
+            if (loaderManager.getLoader(MOVIE_SORT_LOADER) == null) {
+                loaderManager.initLoader(MOVIE_SORT_LOADER, null, this);
             } else {
-                loaderManager.restartLoader(MOVIE_SORT_LOADER, sortBundle, this);
+                loaderManager.restartLoader(MOVIE_SORT_LOADER, null, this);
             }
         } else {
             showErrorMessage();
@@ -168,9 +169,6 @@ public class MainActivity
         return new AsyncTaskLoader<String>(this) {
             @Override
             protected void onStartLoading() {
-                if (args == null) {
-                    return;
-                }
                 mLoadingIndicator.setVisibility(View.VISIBLE);
                 forceLoad();
             }
@@ -178,11 +176,12 @@ public class MainActivity
             @Nullable
             @Override
             public String loadInBackground() {
-                SortBy sort = (SortBy) args.get(SORT_BY_EXTRA);
-                if (sort == null) {
+                Log.d(TAG, "onCreateLoader loadInBackground mSort: " + mSort);
+                if (mSort == SortBy.FAVORITES) {
+                    showFavoritesDataView();
                     return null;
                 }
-                URL movieRequestUrl = NetworkUtils.buildUrl(sort);
+                URL movieRequestUrl = NetworkUtils.buildUrl(mSort);
                 try {
                     String jsonMovieResponse = NetworkUtils.getResponseFromHttpUrl(movieRequestUrl);
                     return jsonMovieResponse;
@@ -206,8 +205,6 @@ public class MainActivity
                 e.printStackTrace();
                 showErrorMessage();
             }
-        } else {
-            showErrorMessage();
         }
     }
 
@@ -246,19 +243,19 @@ public class MainActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_most_popular_sort:
+                mSort = SortBy.MOST_POPULAR;
                 loadMovieData(SortBy.MOST_POPULAR);
                 item.setChecked(!item.isChecked());
-                mSort = SortBy.MOST_POPULAR;
                 return true;
             case R.id.action_top_rated_sort:
+                mSort = SortBy.TOP_RATED;
                 loadMovieData(SortBy.TOP_RATED);
                 item.setChecked(!item.isChecked());
-                mSort = SortBy.TOP_RATED;
                 return true;
             case R.id.action_favorites_sort:
+                mSort = SortBy.FAVORITES;
                 loadMovieData(SortBy.FAVORITES);
                 item.setChecked(!item.isChecked());
-                mSort = SortBy.FAVORITES;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -270,5 +267,25 @@ public class MainActivity
         super.onSaveInstanceState(outState);
         // Save the sort based on what was selected in the menu
         outState.putSerializable(SORT_BY_EXTRA, mSort);
+        // Save the scroll position in the AutofitRecyclerView
+        // Resource: https://stackoverflow.com/questions/28236390/recyclerview-store-restore-state-between-activities
+        Parcelable mListState = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(SCROLL_POSITION_EXTRA, mListState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            mListState = savedInstanceState.getParcelable(SCROLL_POSITION_EXTRA);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mListState != null) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
+        }
     }
 }

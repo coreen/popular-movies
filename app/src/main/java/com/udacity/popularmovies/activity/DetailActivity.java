@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -23,6 +24,8 @@ public class DetailActivity extends AppCompatActivity {
     private static final String MOVIE = "movie";
     private static final String MOVIE_ID_EXTRA = "movieId";
 
+    private ScrollView mScrollView;
+
     private ImageView mBackdrop;
     private TextView mTitle;
     private ImageView mPoster;
@@ -35,6 +38,10 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        mScrollView = findViewById(R.id.detail_activity_scrollview);
+        mScrollView.smoothScrollTo(0, 0);
+        Log.d(TAG, "Setting scrollview to top");
 
         // find all views of activity
         mBackdrop = findViewById(R.id.iv_backdrop);
@@ -69,7 +76,7 @@ public class DetailActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     DataUtils.toggleIsFavorite(context, selectedMovie);
-                    Log.d(TAG, "Tagging movieId " + selectedMovie.getId() +
+                    Log.d(TAG, "Tagging movieId " + selectedMovie.getMovieId() +
                             " as favorite: " + selectedMovie.getIsFavorite(context));
                     mFavoriteStar.setImageResource(selectedMovie.getIsFavorite(context) ?
                             R.drawable.enabled_star :
@@ -80,7 +87,7 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         // Grab associated trailer videos and reviews via movieId
-        int movieId = selectedMovie.getId();
+        int movieId = selectedMovie.getMovieId();
         Bundle bundle = new Bundle();
         bundle.putInt(MOVIE_ID_EXTRA, movieId);
 

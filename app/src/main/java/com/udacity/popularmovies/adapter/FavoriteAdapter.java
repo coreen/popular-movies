@@ -54,7 +54,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                         final int adapterPosition = getAdapterPosition();
                         Movie selectedMovie = getMovieFromCursor(adapterPosition);
                         DataUtils.toggleIsFavorite(mContext, selectedMovie);
-                        Log.d(TAG, "Tagging movieId " + selectedMovie.getId() +
+                        Log.d(TAG, "Tagging movieId " + selectedMovie.getMovieId() +
                                 " as favorite: " + selectedMovie.getIsFavorite(mContext));
                         notifyItemChanged(adapterPosition);
                     }
@@ -85,7 +85,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @Override
     public void onBindViewHolder(@NonNull FavoriteAdapterViewHolder holder, int position) {
         Movie selectedMovie = getMovieFromCursor(position);
-        Log.d(TAG, "onBindViewHolder movie: " + selectedMovie);
         Picasso.with(mContext)
                 .load(selectedMovie.getPosterImageUrl())
                 .placeholder(R.drawable.movie_placeholder)

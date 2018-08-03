@@ -7,7 +7,7 @@
         android:id="@+id/recyclerview_favorite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="200dp" />
+        android:columnWidth="@dimen/autofit_rv_columnWidth" />
 
     <TextView
         android:id="@+id/tv_no_favorites"
@@ -15,13 +15,10 @@
         android:layout_height="wrap_content"
         android:text="@string/no_favorites"
         android:visibility="invisible"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="@dimen/no_content_marginTop" />
 
     <ProgressBar
         android:id="@+id/pb_favorite_loading_indicator"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
+        style="@style/LoadingIndicator" />
 
 </FrameLayout>

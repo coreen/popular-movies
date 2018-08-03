@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- MainActivity -->
+
+    <dimen name="autofit_rv_columnWidth">200dp</dimen>
+
+    <dimen name="loading_indicator_size">42dp</dimen>
+
+    <dimen name="no_content_marginTop">8dp</dimen>
+
+    <!-- DetailActivity -->
+
     <dimen name="title_bar_height">100dp</dimen>
 
-    <dimen name="title_text_size">36dp</dimen>
-    <dimen name="title_text_paddingLeft">12dp</dimen>
+    <dimen name="title_textSize">36dp</dimen>
+    <dimen name="title_paddingLeft">12dp</dimen>
+
+    <dimen name="error_message_padding">16dp</dimen>
+    <dimen name="error_message_textSize">20sp</dimen>
+
+    <dimen name="default_margin">36dp</dimen>
 
     <dimen name="poster_layout_width">160dp</dimen>
     <dimen name="poster_layout_height">215dp</dimen>
-    <dimen name="poster_layout_marginLeft">36dp</dimen>
-    <dimen name="poster_layout_marginStart">36dp</dimen>
     <dimen name="poster_layout_marginTop">28dp</dimen>
 
     <dimen name="favorite_star_layout_width">48dp</dimen>
     <dimen name="favorite_star_layout_height">48dp</dimen>
-    <dimen name="favorite_star_layout_marginEnd">36dp</dimen>
-    <dimen name="favorite_star_layout_marginRight">36dp</dimen>
-    <dimen name="favorite_star_layout_marginTop">36dp</dimen>
 
     <dimen name="movie_info_text_width">132dp</dimen>
     <dimen name="movie_info_text_height">40dp</dimen>
@@ -24,19 +34,12 @@
     <dimen name="movie_info_text_marginTop">28dp</dimen>
 
     <dimen name="summary_layout_marginBottom">8dp</dimen>
-    <dimen name="summary_layout_marginLeft">36dp</dimen>
-    <dimen name="summary_layout_marginStart">36dp</dimen>
-    <dimen name="summary_layout_marginRight">36dp</dimen>
-    <dimen name="summary_layout_marginEnd">36dp</dimen>
     <dimen name="summary_layout_marginTop">24dp</dimen>
 
-    <dimen name="fragment_header_layout_marginLeft">36dp</dimen>
-    <dimen name="fragment_header_layout_marginStart">36dp</dimen>
     <dimen name="fragment_header_layout_marginTop">24dp</dimen>
     <dimen name="fragment_header_textSize">24dp</dimen>
 
-    <dimen name="fragment_layout_marginLeft">36dp</dimen>
-    <dimen name="fragment_layout_marginStart">36dp</dimen>
-    <dimen name="fragment_layout_marginRight">36dp</dimen>
-    <dimen name="fragment_layout_marginEnd">36dp</dimen>
+    <dimen name="fragment_rv_layout_height">200dp</dimen>
+    <dimen name="fragment_rv_marginTop">24dp</dimen>
+    <dimen name="fragment_rv_marginBottom">36dp</dimen>
 </resources>
