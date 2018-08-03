@@ -30,8 +30,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewAdap
 
     @Override
     public void onBindViewHolder(@NonNull ReviewAdapterViewHolder holder, int position) {
-        Log.d(TAG, "#" + position);
-        holder.bind(position);
+        // Resource: https://medium.com/@haydar_ai/better-way-to-get-the-item-position-in-androids-recyclerview-820667d435d4
+        holder.bind(holder.getAdapterPosition());
     }
 
     @Override

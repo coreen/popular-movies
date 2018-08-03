@@ -84,7 +84,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteAdapterViewHolder holder, int position) {
-        Movie selectedMovie = getMovieFromCursor(position);
+        Movie selectedMovie = getMovieFromCursor(holder.getAdapterPosition());
         Picasso.with(mContext)
                 .load(selectedMovie.getPosterImageUrl())
                 .placeholder(R.drawable.movie_placeholder)
