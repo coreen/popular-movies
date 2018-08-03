@@ -201,6 +201,7 @@ public class MainActivity
                 showMovieDataView();
                 Movie[] movieData = JsonUtils.getMoviesFromJsonString(data);
                 mMovieAdapter.setMovieData(movieData);
+                mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
             } catch (JSONException e) {
                 e.printStackTrace();
                 showErrorMessage();

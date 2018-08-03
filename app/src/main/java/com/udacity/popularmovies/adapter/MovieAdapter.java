@@ -81,15 +81,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     }
 
     @Override
-    public void onBindViewHolder(MovieAdapterViewHolder movieAdapterViewHolder, int position) {
-        Movie selectedMovie = movies[position];
+    public void onBindViewHolder(MovieAdapterViewHolder holder, int position) {
+        Movie selectedMovie = movies[holder.getAdapterPosition()];
         Picasso.with(mContext)
                 .load(selectedMovie.getPosterImageUrl())
                 .placeholder(R.drawable.movie_placeholder)
                 .error(R.drawable.movie_placeholder_error)
-                .into(movieAdapterViewHolder.mMovieImageView);
-        movieAdapterViewHolder.mMovieTitle.setText(selectedMovie.getTitle());
-        movieAdapterViewHolder.mFavorite.setImageResource(selectedMovie.getIsFavorite(mContext) ?
+                .into(holder.mMovieImageView);
+        holder.mMovieTitle.setText(selectedMovie.getTitle());
+        holder.mFavorite.setImageResource(selectedMovie.getIsFavorite(mContext) ?
                 R.drawable.enabled_star :
                 R.drawable.disabled_star);
     }
